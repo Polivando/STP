@@ -54,12 +54,13 @@ namespace Organizer
         
         private void calendar1_ItemDoubleClick(object sender, CalendarItemEventArgs e)
         {
-            if (_items.Count(i => i.CalendarItem == e.Item) <= 0) return;
-
-            var task = _items.First(i => i.CalendarItem == e.Item);
-            var editTaskForm = new EditTaskForm(ref task);
-            editTaskForm.Show();
-
+            if (_items.Count(i => i.CalendarItem == e.Item)>0)
+            {
+                var task = _items.First(i => i.CalendarItem == e.Item);
+                var editTaskForm = new EditTaskForm(ref task);
+                editTaskForm.ShowDialog();
+                RefreshCalendar();
+            }
         }
 
         #region toolstrip
@@ -115,9 +116,11 @@ namespace Organizer
 
         private void editItemToolStripMenuItem_Click(object sender, EventArgs e) => calendar1.ActivateEditMode();
 
-        #endregion
+    #endregion
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) => DataHelper.SaveItemsToFile();
 
+        #region calendar event handlers
         private void otherColorTagToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dlg = new ColorDialog())
@@ -189,91 +192,42 @@ namespace Organizer
             }
         }
 
-        private void monthView1_SelectionChanged(object sender, EventArgs e)
-        {
-            calendar1.SetViewRange(monthView1.SelectionStart, monthView1.SelectionEnd);
-        }
+        private void monthView1_SelectionChanged(object sender, EventArgs e) => calendar1.SetViewRange(monthView1.SelectionStart, monthView1.SelectionEnd);
 
-        private void northToolStripMenuItem_Click(object sender, EventArgs e)
+        #endregion
+        private void EmulateMonthViewClick(DateTime day)
         {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            switch ((MonthViewSelection)TimeIntervalComboBox.SelectedItem)
             {
-                item.ImageAlign = CalendarItemImageAlign.North;
-                calendar1.Invalidate(item);
+                case MonthViewSelection.Day:
+                    monthView1.SelectDay(day.Date);
+                    break;
+                case MonthViewSelection.Week:
+                    monthView1.SelectWeek(day.Date);
+                    break;
+                case MonthViewSelection.Month:
+                    monthView1.SelectMonth(day.Date);
+                    break;
             }
+
         }
-
-        private void eastToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
-            {
-                item.ImageAlign = CalendarItemImageAlign.East;
-                calendar1.Invalidate(item);
-            }
-        }
-
-        private void southToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
-            {
-                item.ImageAlign = CalendarItemImageAlign.South;
-                calendar1.Invalidate(item);
-            }
-        }
-
-        private void westToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
-            {
-                item.ImageAlign = CalendarItemImageAlign.West;
-                calendar1.Invalidate(item);
-            }
-        }
-
-        private void selectImageToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog())
-            {
-                dlg.Filter = "*.gif|*.gif|*.png|*.png|*.jpg|*.jpg";
-
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    Image img = Image.FromFile(dlg.FileName);
-
-                    foreach (CalendarItem item in calendar1.GetSelectedItems())
-                    {
-                        item.Image = img;
-                        calendar1.Invalidate(item);
-                    }
-                }
-            }
-        }
-
         public void TimeIntervalComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             monthView1.SelectionMode = (MonthViewSelection)TimeIntervalComboBox.SelectedItem;
-            if ((MonthViewSelection)TimeIntervalComboBox.SelectedItem != MonthViewSelection.Manual)
-            {
+            if ((MonthViewSelection) TimeIntervalComboBox.SelectedItem != MonthViewSelection.Manual)
                 EmulateMonthViewClick(calendar1.ViewStart);
-            }
-
-            //DisplayPeriodWithDay(calendar1.ViewStart, TimeIntervalComboBox.SelectedItem.ToString());
         }
 
         private void previousIntervalLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if ((MonthViewSelection)TimeIntervalComboBox.SelectedItem != MonthViewSelection.Manual)
-            {
+            if ((MonthViewSelection) TimeIntervalComboBox.SelectedItem != MonthViewSelection.Manual)
                 EmulateMonthViewClick(calendar1.ViewStart.AddDays(-1));
-            }
         }
 
         private void nextIntervalLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if ((MonthViewSelection)TimeIntervalComboBox.SelectedItem != MonthViewSelection.Manual)
-            {
+            if ((MonthViewSelection) TimeIntervalComboBox.SelectedItem != MonthViewSelection.Manual)
                 EmulateMonthViewClick(calendar1.ViewEnd.Add(new TimeSpan(0, 0, 2)));
-            }
         }
 
         private void AddTaskButton_Click(object sender, EventArgs e)
