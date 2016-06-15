@@ -76,9 +76,13 @@ namespace Organizer
 
         private void calendar1_ItemDoubleClick(object sender, CalendarItemEventArgs e)
         {
-            var task = _items.First(i => i.CalendarItem == e.Item);
-            var editTaskForm = new EditTaskForm(ref task);
-            editTaskForm.Show();
+            if (_items.Count(i => i.CalendarItem == e.Item)>0)
+            {
+                var task = _items.First(i => i.CalendarItem == e.Item);
+                var editTaskForm = new EditTaskForm(ref task);
+                editTaskForm.Show();
+            }
+            
         }
 
         #region toolstrip
