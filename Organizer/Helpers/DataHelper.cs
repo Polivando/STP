@@ -15,9 +15,10 @@ namespace Organizer.Helpers
 
         public static void LoadItemsFromFile(Calendar calendar)
         {
-            if (!ItemsFile.Exists) return;
-            var lst = new List<XmlTask>();
+            if (!ItemsFile.Exists)
+                return;
 
+            var lst = new List<XmlTask>();
             var xml = new XmlSerializer(lst.GetType());
 
             using (Stream s = ItemsFile.OpenRead())
@@ -29,11 +30,8 @@ namespace Organizer.Helpers
             {
                 var task = new TaskItem(calendar, item);
 
-                if (!(item.R == 0 && item.G == 0 && item.B == 0))
-                {
+                if (item.R + item.G + item.B != 0)
                     task.CalendarItem.ApplyColor(Color.FromArgb(item.A, item.R, item.G, item.B));
-                }
-
                 _items.Add(task);
             }
         }
@@ -43,22 +41,16 @@ namespace Organizer.Helpers
             var lst = new List<XmlTask>();
 
             foreach (var item in _items)
-            {
                 lst.Add(new XmlTask(item));
-            }
 
             var xmls = new XmlSerializer(lst.GetType());
 
             if (ItemsFile.Exists)
-            {
                 ItemsFile.Delete();
-            }
 
-            using (Stream s = ItemsFile.OpenWrite())
-            {
-                xmls.Serialize(s, lst);
-                s.Close();
-            }
+            Stream s = ItemsFile.OpenWrite();
+            xmls.Serialize(s, lst);
+            s.Close();
         }
     }
 }
