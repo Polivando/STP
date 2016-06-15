@@ -555,10 +555,19 @@ namespace System.Windows.Forms.Calendar
         }
 
         /// <summary>
+        /// Selects the day where the hit is contained
+        /// </summary>
+        /// <param name="hit"></param>
+        public void SelectDay(DateTime hit)
+        {
+            SelectionEnd = _selectionStart = hit;
+        }
+
+        /// <summary>
         /// Selects the week where the hit is contained
         /// </summary>
         /// <param name="hit"></param>
-        private void SelectWeek(DateTime hit)
+        public void SelectWeek(DateTime hit)
         {
             int preDays = (new int[] { 0, 1, 2, 3, 4, 5, 6 })[(int)hit.DayOfWeek] - (int)FirstDayOfWeek;
 
@@ -570,7 +579,7 @@ namespace System.Windows.Forms.Calendar
         /// Selecs the work-week where the hit is contanied
         /// </summary>
         /// <param name="hit"></param>
-        private void SelectWorkWeek(DateTime hit)
+        public void SelectWorkWeek(DateTime hit)
         {
             int preDays = (new int[] { 0, 1, 2, 3, 4, 5, 6 })[(int)hit.DayOfWeek] - (int)WorkWeekStart;
 
@@ -582,7 +591,7 @@ namespace System.Windows.Forms.Calendar
         /// Selecs the month where the hit is contanied
         /// </summary>
         /// <param name="hit"></param>
-        private void SelectMonth(DateTime hit)
+        public void SelectMonth(DateTime hit)
         {
             _selectionStart = new DateTime(hit.Year, hit.Month, 1);
             SelectionEnd = new DateTime(hit.Year, hit.Month, DateTime.DaysInMonth(hit.Year, hit.Month));
@@ -715,7 +724,7 @@ namespace System.Windows.Forms.Calendar
                 {
                     case MonthViewSelection.Manual:
                     case MonthViewSelection.Day:
-                        SelectionEnd = _selectionStart = day.Date;
+                        SelectDay(day.Date);
                         break;
                     case MonthViewSelection.WorkWeek:
                         SelectWorkWeek(day.Date);

@@ -1,66 +1,45 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Windows.Forms.Calendar;
-using System.Xml.Serialization;
-using System.IO;
+﻿using Organizer.Helpers;
 
-namespace CalendarDemo
+namespace Organizer
 {
-    public partial class DemoForm : Form
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
+    using System.Windows.Forms;
+    using System.Windows.Forms.Calendar;
+    using System.Xml.Serialization;
+    using Constants;
+    using static System.Windows.Forms.Calendar.MonthView;
+    using static Organizer.Context;
+    public partial class Form1 : Form
     {
-        List<CalendarItem> _items = new List<CalendarItem>();
-        CalendarItem contextItem = null;
-
-        public DemoForm()
+        public Form1()
         {
             InitializeComponent();
-
             //Monthview colors
             monthView1.MonthTitleColor = monthView1.MonthTitleColorInactive = CalendarColorTable.FromHex("#C2DAFC");
             monthView1.ArrowsColor = CalendarColorTable.FromHex("#77A1D3");
             monthView1.DaySelectedBackgroundColor = CalendarColorTable.FromHex("#F4CC52");
             monthView1.DaySelectedTextColor = monthView1.ForeColor;
-
-        }
-
-        public FileInfo ItemsFile
-        {
-            get 
+            TimeIntervalComboBox.DataSource = new[]
             {
-                return new FileInfo(Path.Combine(Application.StartupPath, "items.xml"));
-            }
+                MonthViewSelection.Manual,
+                MonthViewSelection.Day,
+                MonthViewSelection.Week,
+                MonthViewSelection.Month
+            };
+            //{
+            //    TimeIntervals.None, TimeIntervals.Day, TimeIntervals.Week, TimeIntervals.Month
+            //};
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (ItemsFile.Exists)
-            {
-                List<ItemInfo> lst = new List<ItemInfo>();
-
-                XmlSerializer xml = new XmlSerializer(lst.GetType());
-
-                using (Stream s = ItemsFile.OpenRead())
-                {
-                    lst = xml.Deserialize(s) as List<ItemInfo>;
-                }
-
-                foreach (ItemInfo item in lst)
-                {
-                    CalendarItem cal = new CalendarItem(calendar1, item.StartTime, item.EndTime, item.Text);
-
-                    if (!(item.R == 0 && item.G == 0 && item.B == 0))
-                    {
-                        cal.ApplyColor(Color.FromArgb(item.A, item.R, item.G, item.B));
-                    }
-
-                    _items.Add(cal);
-                }
-
-                PlaceItems();
-            }
+            DataHelper.LoadItemsFromFile(calendar1);
+            PlaceItems();
         }
 
         private void calendar1_LoadItems(object sender, CalendarLoadEventArgs e)
@@ -70,18 +49,19 @@ namespace CalendarDemo
 
         private void PlaceItems()
         {
-            foreach (CalendarItem item in _items)
+            foreach (TaskItem item in _items)
             {
-                if (calendar1.ViewIntersects(item))
+                if (calendar1.ViewIntersects(item.CalendarItem))
                 {
-                    calendar1.Items.Add(item);
+                    calendar1.Items.Add(item.CalendarItem);
                 }
             }
         }
 
         private void calendar1_ItemCreated(object sender, CalendarItemCancelEventArgs e)
         {
-            _items.Add(e.Item);
+            var newTask = new TaskItem(e.Item);
+            _items.Add(newTask);
         }
 
         private void calendar1_ItemMouseHover(object sender, CalendarItemEventArgs e)
@@ -94,6 +74,14 @@ namespace CalendarDemo
             //MessageBox.Show(e.Item.Text);
         }
 
+        private void calendar1_ItemDoubleClick(object sender, CalendarItemEventArgs e)
+        {
+            var task = _items.First(i => i.CalendarItem == e.Item);
+            var editTaskForm = new EditTaskForm(ref task);
+            editTaskForm.Show();
+        }
+
+        #region toolstrip
         private void hourToolStripMenuItem_Click(object sender, EventArgs e)
         {
             calendar1.TimeScale = CalendarTimeScale.SixtyMinutes;
@@ -170,27 +158,10 @@ namespace CalendarDemo
             calendar1.ActivateEditMode();
         }
 
-        private void DemoForm_FormClosing(object sender, FormClosingEventArgs e)
+#endregion
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            List<ItemInfo> lst = new List<ItemInfo>();
-            
-            foreach (CalendarItem item in _items)
-            {
-                lst.Add(new ItemInfo(item.StartDate, item.EndDate, item.Text, item.BackgroundColor));
-            }
-
-            XmlSerializer xmls = new XmlSerializer(lst.GetType());
-
-            if (ItemsFile.Exists)
-            {
-                ItemsFile.Delete();
-            }
-
-            using (Stream s = ItemsFile.OpenWrite())
-            {
-                xmls.Serialize(s, lst);
-                s.Close();
-            }
+            DataHelper.SaveItemsToFile();
         }
 
         private void otherColorTagToolStripMenuItem_Click(object sender, EventArgs e)
@@ -207,15 +178,11 @@ namespace CalendarDemo
                 }
             }
         }
-
-        private void calendar1_ItemDoubleClick(object sender, CalendarItemEventArgs e)
-        {
-            MessageBox.Show("Double click: " + e.Item.Text);
-        }
-
+        
         private void calendar1_ItemDeleted(object sender, CalendarItemEventArgs e)
         {
-            _items.Remove(e.Item);
+            var itemToDelete = _items.FirstOrDefault(i => i.CalendarItem == e.Item);
+            _items.Remove(itemToDelete);
         }
 
         private void calendar1_DayHeaderClick(object sender, CalendarDayEventArgs e)
@@ -331,8 +298,45 @@ namespace CalendarDemo
                     }
                 }
             }
+        }
 
-            
+        public void TimeIntervalComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            monthView1.SelectionMode = (MonthViewSelection)TimeIntervalComboBox.SelectedItem;
+            if ((MonthViewSelection)TimeIntervalComboBox.SelectedItem != MonthViewSelection.Manual)
+            {
+                EmulateMonthViewClick(calendar1.ViewStart);
+            }
+
+            //DisplayPeriodWithDay(calendar1.ViewStart, TimeIntervalComboBox.SelectedItem.ToString());
+        }
+
+        private void previousIntervalLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if ((MonthViewSelection)TimeIntervalComboBox.SelectedItem != MonthViewSelection.Manual)
+            {
+                EmulateMonthViewClick(calendar1.ViewStart.AddDays(-1));
+            }
+        }
+
+        private void nextIntervalLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if ((MonthViewSelection)TimeIntervalComboBox.SelectedItem != MonthViewSelection.Manual)
+            {
+                EmulateMonthViewClick(calendar1.ViewEnd.Add(new TimeSpan(0, 0, 2)));
+            }
+        }
+
+        private void AddTaskButton_Click(object sender, EventArgs e)
+        {
+            var newTask = new TaskItem(calendar1);
+            var newTaskForm = new EditTaskForm(ref newTask);
+            newTaskForm.ShowDialog();
+        }
+
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
+            //ClearItems();
         }
     }
 }
