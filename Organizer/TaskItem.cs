@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms.Calendar;
-using System.Xml.Serialization;
 using Organizer.Helpers;
 
 namespace Organizer
@@ -31,22 +27,13 @@ namespace Organizer
         public ulong Id { get; private set; }
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
-        /*TODO: add smth*/
         public int A { get; set; }
         public int R { get; set; }
         public int G { get; set; }
         public int B { get; set; }
-        HatchStyle pattern { get; set; }
-        Color patternColor { get; set; }
-        //private string _title => CalendarItem.Text;
-        //private DateTime _startDate => CalendarItem.StartDate;
-        //private DateTime _endDateTime => CalendarItem.EndDate;
-
-        [XmlIgnore]
+        
         public CalendarItem CalendarItem { get; set; }
-
-        public TaskItem() { }
-
+        
         public TaskItem(Calendar calendar)
         {
             Id = SequenceGenerator.GenerateNextValue();

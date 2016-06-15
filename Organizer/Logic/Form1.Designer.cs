@@ -82,48 +82,48 @@
             this.toolStripMenuItem5,
             this.editItemToolStripMenuItem});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.contextMenuStrip1.Size = new System.Drawing.Size(164, 192);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(164, 198);
       this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
       // 
       // redTagToolStripMenuItem
       // 
       this.redTagToolStripMenuItem.Name = "redTagToolStripMenuItem";
-      this.redTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.redTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.redTagToolStripMenuItem.Text = "Red tag";
       this.redTagToolStripMenuItem.Click += new System.EventHandler(this.redTagToolStripMenuItem_Click);
       // 
       // yellowTagToolStripMenuItem
       // 
       this.yellowTagToolStripMenuItem.Name = "yellowTagToolStripMenuItem";
-      this.yellowTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.yellowTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.yellowTagToolStripMenuItem.Text = "Yellow tag";
       this.yellowTagToolStripMenuItem.Click += new System.EventHandler(this.yellowTagToolStripMenuItem_Click);
       // 
       // greenTagToolStripMenuItem
       // 
       this.greenTagToolStripMenuItem.Name = "greenTagToolStripMenuItem";
-      this.greenTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.greenTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.greenTagToolStripMenuItem.Text = "Green tag";
       this.greenTagToolStripMenuItem.Click += new System.EventHandler(this.greenTagToolStripMenuItem_Click);
       // 
       // blueTagToolStripMenuItem
       // 
       this.blueTagToolStripMenuItem.Name = "blueTagToolStripMenuItem";
-      this.blueTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.blueTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.blueTagToolStripMenuItem.Text = "Blue tag";
       this.blueTagToolStripMenuItem.Click += new System.EventHandler(this.blueTagToolStripMenuItem_Click);
       // 
       // otherColorTagToolStripMenuItem
       // 
       this.otherColorTagToolStripMenuItem.Name = "otherColorTagToolStripMenuItem";
-      this.otherColorTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.otherColorTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.otherColorTagToolStripMenuItem.Text = "Other color tag...";
       this.otherColorTagToolStripMenuItem.Click += new System.EventHandler(this.otherColorTagToolStripMenuItem_Click);
       // 
       // toolStripMenuItem1
       // 
       this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-      this.toolStripMenuItem1.Size = new System.Drawing.Size(160, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(160, 6);
       // 
       // patternToolStripMenuItem
       // 
@@ -135,7 +135,7 @@
             this.toolStripMenuItem3,
             this.noneToolStripMenuItem});
       this.patternToolStripMenuItem.Name = "patternToolStripMenuItem";
-      this.patternToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.patternToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.patternToolStripMenuItem.Text = "Pattern";
       // 
       // diagonalToolStripMenuItem
@@ -188,7 +188,7 @@
             this.minutesToolStripMenuItem2,
             this.minutesToolStripMenuItem3});
       this.timescaleToolStripMenuItem.Name = "timescaleToolStripMenuItem";
-      this.timescaleToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.timescaleToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.timescaleToolStripMenuItem.Text = "Timescale";
       // 
       // hourToolStripMenuItem
@@ -232,16 +232,15 @@
       this.minutesToolStripMenuItem3.Size = new System.Drawing.Size(132, 22);
       this.minutesToolStripMenuItem3.Text = "5 minutes";
       this.minutesToolStripMenuItem3.Click += new System.EventHandler(this.minutesToolStripMenuItem3_Click);
-      // 
       // toolStripMenuItem5
       // 
       this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-      this.toolStripMenuItem5.Size = new System.Drawing.Size(160, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(160, 6);
       // 
       // editItemToolStripMenuItem
       // 
       this.editItemToolStripMenuItem.Name = "editItemToolStripMenuItem";
-      this.editItemToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.editItemToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.editItemToolStripMenuItem.Text = "Edit item title";
       this.editItemToolStripMenuItem.Click += new System.EventHandler(this.editItemToolStripMenuItem_Click);
       // 
@@ -299,7 +298,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.calendar1.ContextMenuStrip = this.contextMenuStrip1;
-      this.calendar1.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            this.calendar1.Font = new System.Drawing.Font("Segoe UI", 9F);
       calendarHighlightRange1.DayOfWeek = System.DayOfWeek.Monday;
       calendarHighlightRange1.EndTime = System.TimeSpan.Parse("17:00:00");
       calendarHighlightRange1.StartTime = System.TimeSpan.Parse("08:00:00");
@@ -330,7 +329,6 @@
       this.calendar1.DayHeaderClick += new System.Windows.Forms.Calendar.Calendar.CalendarDayEventHandler(this.calendar1_DayHeaderClick);
       this.calendar1.ItemCreated += new System.Windows.Forms.Calendar.Calendar.CalendarItemCancelEventHandler(this.calendar1_ItemCreated);
       this.calendar1.ItemDeleted += new System.Windows.Forms.Calendar.Calendar.CalendarItemEventHandler(this.calendar1_ItemDeleted);
-      this.calendar1.ItemClick += new System.Windows.Forms.Calendar.Calendar.CalendarItemEventHandler(this.calendar1_ItemClick);
       this.calendar1.ItemDoubleClick += new System.Windows.Forms.Calendar.Calendar.CalendarItemEventHandler(this.calendar1_ItemDoubleClick);
       this.calendar1.ItemMouseHover += new System.Windows.Forms.Calendar.Calendar.CalendarItemEventHandler(this.calendar1_ItemMouseHover);
       // 
