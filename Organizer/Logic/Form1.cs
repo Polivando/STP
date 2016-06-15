@@ -3,17 +3,13 @@
 namespace Organizer
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Drawing;
-    using System.IO;
     using System.Linq;
     using System.Windows.Forms;
     using System.Windows.Forms.Calendar;
-    using System.Xml.Serialization;
-    using Constants;
     using static System.Windows.Forms.Calendar.MonthView;
-    using static Organizer.Context;
+    using static Context;
     public partial class Form1 : Form
     {
         public Form1()
@@ -31,9 +27,6 @@ namespace Organizer
                 MonthViewSelection.Week,
                 MonthViewSelection.Month
             };
-            //{
-            //    TimeIntervals.None, TimeIntervals.Day, TimeIntervals.Week, TimeIntervals.Month
-            //};
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,20 +35,13 @@ namespace Organizer
             PlaceItems();
         }
 
-        private void calendar1_LoadItems(object sender, CalendarLoadEventArgs e)
-        {
-            PlaceItems();
-        }
+        private void calendar1_LoadItems(object sender, CalendarLoadEventArgs e) => PlaceItems();
 
         private void PlaceItems()
         {
-            foreach (TaskItem item in _items)
-            {
+            foreach (var item in _items)
                 if (calendar1.ViewIntersects(item.CalendarItem))
-                {
                     calendar1.Items.Add(item.CalendarItem);
-                }
-            }
         }
 
         private void calendar1_ItemCreated(object sender, CalendarItemCancelEventArgs e)
@@ -64,66 +50,36 @@ namespace Organizer
             _items.Add(newTask);
         }
 
-        private void calendar1_ItemMouseHover(object sender, CalendarItemEventArgs e)
-        {
-            Text = e.Item.Text;
-        }
-
-        private void calendar1_ItemClick(object sender, CalendarItemEventArgs e)
-        {
-            //MessageBox.Show(e.Item.Text);
-        }
-
+        private void calendar1_ItemMouseHover(object sender, CalendarItemEventArgs e) => Text = e.Item.Text;
+        
         private void calendar1_ItemDoubleClick(object sender, CalendarItemEventArgs e)
         {
-            if (_items.Count(i => i.CalendarItem == e.Item)>0)
-            {
-                var task = _items.First(i => i.CalendarItem == e.Item);
-                var editTaskForm = new EditTaskForm(ref task);
-                editTaskForm.Show();
-            }
-            
+            if (_items.Count(i => i.CalendarItem == e.Item) <= 0) return;
+
+            var task = _items.First(i => i.CalendarItem == e.Item);
+            var editTaskForm = new EditTaskForm(ref task);
+            editTaskForm.Show();
+
         }
 
         #region toolstrip
-        private void hourToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            calendar1.TimeScale = CalendarTimeScale.SixtyMinutes;
-        }
+        private void hourToolStripMenuItem_Click(object sender, EventArgs e) => calendar1.TimeScale = CalendarTimeScale.SixtyMinutes;
 
-        private void minutesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            calendar1.TimeScale = CalendarTimeScale.ThirtyMinutes;
-        }
+        private void minutesToolStripMenuItem_Click(object sender, EventArgs e) => calendar1.TimeScale = CalendarTimeScale.ThirtyMinutes;
 
-        private void toolStripMenuItem4_Click(object sender, EventArgs e)
-        {
-            calendar1.TimeScale = CalendarTimeScale.FifteenMinutes;
-        }
+        private void toolStripMenuItem4_Click(object sender, EventArgs e) => calendar1.TimeScale = CalendarTimeScale.FifteenMinutes;
 
-        private void minutesToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            calendar1.TimeScale = CalendarTimeScale.SixMinutes;
-        }
+        private void minutesToolStripMenuItem2_Click(object sender, EventArgs e) => calendar1.TimeScale = CalendarTimeScale.SixMinutes;
 
-        private void minutesToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            calendar1.TimeScale = CalendarTimeScale.TenMinutes;
-        }
+        private void minutesToolStripMenuItem1_Click(object sender, EventArgs e) => calendar1.TimeScale = CalendarTimeScale.TenMinutes;
 
-        private void minutesToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            calendar1.TimeScale = CalendarTimeScale.FiveMinutes;
-        }
+        private void minutesToolStripMenuItem3_Click(object sender, EventArgs e) => calendar1.TimeScale = CalendarTimeScale.FiveMinutes;
 
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-            contextItem = calendar1.ItemAt(contextMenuStrip1.Bounds.Location);
-        }
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e) => contextItem = calendar1.ItemAt(contextMenuStrip1.Bounds.Location);
 
         private void redTagToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            foreach (var item in calendar1.GetSelectedItems())
             {
                 item.ApplyColor(Color.Red);
                 calendar1.Invalidate(item);
@@ -132,7 +88,7 @@ namespace Organizer
 
         private void yellowTagToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            foreach (var item in calendar1.GetSelectedItems())
             {
                 item.ApplyColor(Color.Gold);
                 calendar1.Invalidate(item);
@@ -141,7 +97,7 @@ namespace Organizer
 
         private void greenTagToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            foreach (var item in calendar1.GetSelectedItems())
             {
                 item.ApplyColor(Color.Green);
                 calendar1.Invalidate(item);
@@ -150,35 +106,27 @@ namespace Organizer
 
         private void blueTagToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            foreach (var item in calendar1.GetSelectedItems())
             {
                 item.ApplyColor(Color.DarkBlue);
                 calendar1.Invalidate(item);
             }
         }
 
-        private void editItemToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            calendar1.ActivateEditMode();
-        }
+        private void editItemToolStripMenuItem_Click(object sender, EventArgs e) => calendar1.ActivateEditMode();
 
-#endregion
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            DataHelper.SaveItemsToFile();
-        }
+        #endregion
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) => DataHelper.SaveItemsToFile();
 
         private void otherColorTagToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (ColorDialog dlg = new ColorDialog())
+            using (var dlg = new ColorDialog())
             {
-                if (dlg.ShowDialog() == DialogResult.OK)
+                if (dlg.ShowDialog() != DialogResult.OK) return;
+                foreach (var item in calendar1.GetSelectedItems())
                 {
-                    foreach (CalendarItem item in calendar1.GetSelectedItems())
-                    {
-                        item.ApplyColor(dlg.Color);
-                        calendar1.Invalidate(item);
-                    }
+                    item.ApplyColor(dlg.Color);
+                    calendar1.Invalidate(item);
                 }
             }
         }
@@ -189,14 +137,11 @@ namespace Organizer
             _items.Remove(itemToDelete);
         }
 
-        private void calendar1_DayHeaderClick(object sender, CalendarDayEventArgs e)
-        {
-            calendar1.SetViewRange(e.CalendarDay.Date, e.CalendarDay.Date);
-        }
+        private void calendar1_DayHeaderClick(object sender, CalendarDayEventArgs e) => calendar1.SetViewRange(e.CalendarDay.Date, e.CalendarDay.Date);
 
         private void diagonalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            foreach (var item in calendar1.GetSelectedItems())
             {
                 item.Pattern = System.Drawing.Drawing2D.HatchStyle.ForwardDiagonal;
                 item.PatternColor = Color.Red;
@@ -206,7 +151,7 @@ namespace Organizer
 
         private void verticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            foreach (var item in calendar1.GetSelectedItems())
             {
                 item.Pattern = System.Drawing.Drawing2D.HatchStyle.Vertical;
                 item.PatternColor = Color.Red;
@@ -216,7 +161,7 @@ namespace Organizer
 
         private void horizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            foreach (var item in calendar1.GetSelectedItems())
             {
                 item.Pattern = System.Drawing.Drawing2D.HatchStyle.Horizontal;
                 item.PatternColor = Color.Red;
@@ -226,7 +171,7 @@ namespace Organizer
 
         private void hatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            foreach (var item in calendar1.GetSelectedItems())
             {
                 item.Pattern = System.Drawing.Drawing2D.HatchStyle.DiagonalCross;
                 item.PatternColor = Color.Red;
