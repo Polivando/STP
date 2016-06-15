@@ -71,7 +71,7 @@ namespace Organizer
 
         private void calendar1_ItemClick(object sender, CalendarItemEventArgs e)
         {
-            //MessageBox.Show(e.Item.Text);
+            
         }
 
         private void calendar1_ItemDoubleClick(object sender, CalendarItemEventArgs e)
@@ -249,61 +249,6 @@ namespace Organizer
         {
             calendar1.SetViewRange(monthView1.SelectionStart, monthView1.SelectionEnd);
         }
-
-        private void northToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
-            {
-                item.ImageAlign = CalendarItemImageAlign.North;
-                calendar1.Invalidate(item);
-            }
-        }
-
-        private void eastToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
-            {
-                item.ImageAlign = CalendarItemImageAlign.East;
-                calendar1.Invalidate(item);
-            }
-        }
-
-        private void southToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
-            {
-                item.ImageAlign = CalendarItemImageAlign.South;
-                calendar1.Invalidate(item);
-            }
-        }
-
-        private void westToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (CalendarItem item in calendar1.GetSelectedItems())
-            {
-                item.ImageAlign = CalendarItemImageAlign.West;
-                calendar1.Invalidate(item);
-            }
-        }
-
-        private void selectImageToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog())
-            {
-                dlg.Filter = "*.gif|*.gif|*.png|*.png|*.jpg|*.jpg";
-
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    Image img = Image.FromFile(dlg.FileName);
-
-                    foreach (CalendarItem item in calendar1.GetSelectedItems())
-                    {
-                        item.Image = img;
-                        calendar1.Invalidate(item);
-                    }
-                }
-            }
-        }
 #endregion
         public void TimeIntervalComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -312,8 +257,6 @@ namespace Organizer
             {
                 EmulateMonthViewClick(calendar1.ViewStart);
             }
-
-            //DisplayPeriodWithDay(calendar1.ViewStart, TimeIntervalComboBox.SelectedItem.ToString());
         }
 
         private void previousIntervalLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

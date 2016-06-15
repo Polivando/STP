@@ -5,7 +5,7 @@
 
     public static class SequenceGenerator
     {
-        public static long GenerateNextValue()
+        public static ulong GenerateNextValue()
         {
             return _items.Count == 0 ? 0 : _items.Max(i => i.Id)+1;
         }

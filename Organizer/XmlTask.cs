@@ -14,7 +14,7 @@ namespace Organizer
 
         public string Title { get; set; }
 
-        public long Id { get; set; }
+        public ulong Id { get; set; }
 
         public string ShortDescription { get; set; }
 

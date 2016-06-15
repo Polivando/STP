@@ -28,7 +28,7 @@ namespace Organizer
             set { CalendarItem.Text = value; } 
         }
 
-        public long Id { get; private set; }
+        public ulong Id { get; private set; }
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
         /*TODO: add smth*/
