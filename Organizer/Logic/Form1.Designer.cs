@@ -72,7 +72,6 @@
             this.calendar1 = new System.Windows.Forms.Calendar.Calendar();
             this.monthView1 = new System.Windows.Forms.Calendar.MonthView();
             this.AddTaskButton = new System.Windows.Forms.Button();
-            this.RefreshButton = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,7 +92,7 @@
             this.toolStripMenuItem5,
             this.editItemToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 242);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 264);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // redTagToolStripMenuItem
@@ -304,7 +303,7 @@
             // 
             this.editItemToolStripMenuItem.Name = "editItemToolStripMenuItem";
             this.editItemToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.editItemToolStripMenuItem.Text = "Edit item";
+            this.editItemToolStripMenuItem.Text = "Edit item title";
             this.editItemToolStripMenuItem.Click += new System.EventHandler(this.editItemToolStripMenuItem_Click);
             // 
             // splitter1
@@ -430,22 +429,11 @@
             this.AddTaskButton.UseVisualStyleBackColor = true;
             this.AddTaskButton.Click += new System.EventHandler(this.AddTaskButton_Click);
             // 
-            // RefreshButton
-            // 
-            this.RefreshButton.Location = new System.Drawing.Point(650, 8);
-            this.RefreshButton.Name = "RefreshButton";
-            this.RefreshButton.Size = new System.Drawing.Size(75, 23);
-            this.RefreshButton.TabIndex = 10;
-            this.RefreshButton.Text = "Refresh";
-            this.RefreshButton.UseVisualStyleBackColor = true;
-            this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1297, 722);
-            this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.AddTaskButton);
             this.Controls.Add(this.nextIntervalLinkLabel);
             this.Controls.Add(this.previousIntervalLinkLabel);
@@ -504,7 +492,6 @@
         private System.Windows.Forms.LinkLabel previousIntervalLinkLabel;
         private System.Windows.Forms.LinkLabel nextIntervalLinkLabel;
         private System.Windows.Forms.Button AddTaskButton;
-        private System.Windows.Forms.Button RefreshButton;
     }
 }
 

@@ -332,11 +332,13 @@ namespace Organizer
             var newTask = new TaskItem(calendar1);
             var newTaskForm = new EditTaskForm(ref newTask);
             newTaskForm.ShowDialog();
+            RefreshCalendar();
         }
 
-        private void RefreshButton_Click(object sender, EventArgs e)
+        private void RefreshCalendar()
         {
-            //ClearItems();
+            calendar1.ClearItems();
+            PlaceItems();
         }
     }
 }

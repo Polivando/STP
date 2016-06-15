@@ -1023,7 +1023,7 @@ namespace System.Windows.Forms.Calendar
         /// <summary>
         /// Removes all the items currently on the calendar
         /// </summary>
-        private void ClearItems()
+        public void ClearItems()
         {
             Items.Clear();
             Renderer.DayTopHeight = Renderer.DayTopMinHeight;
