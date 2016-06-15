@@ -80,12 +80,12 @@ namespace Organizer
             {
                 var task = _items.First(i => i.CalendarItem == e.Item);
                 var editTaskForm = new EditTaskForm(ref task);
-                editTaskForm.Show();
+                editTaskForm.ShowDialog();
+                RefreshCalendar();
             }
-            
         }
 
-        #region toolstrip
+#region toolstrip
         private void hourToolStripMenuItem_Click(object sender, EventArgs e)
         {
             calendar1.TimeScale = CalendarTimeScale.SixtyMinutes;
@@ -162,12 +162,13 @@ namespace Organizer
             calendar1.ActivateEditMode();
         }
 
-#endregion
+    #endregion
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             DataHelper.SaveItemsToFile();
         }
-
+#region calendar event handlers
         private void otherColorTagToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (ColorDialog dlg = new ColorDialog())
@@ -303,7 +304,7 @@ namespace Organizer
                 }
             }
         }
-
+#endregion
         public void TimeIntervalComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             monthView1.SelectionMode = (MonthViewSelection)TimeIntervalComboBox.SelectedItem;

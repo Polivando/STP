@@ -47,6 +47,7 @@ namespace Organizer
                 _items.Add(_task);
                     else throw new Exception("Error on rewriting the task");
             MessageBox.Show("Successfully saved");
+            Close();
         }
 
         private void CancelButton_Click(object sender, EventArgs e) => Close();
