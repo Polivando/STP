@@ -111,6 +111,8 @@
       this.StartDateTimePicker.CustomFormat = "dd.MM.yyyy HH:mm";
       this.StartDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
       this.StartDateTimePicker.Location = new System.Drawing.Point(11, 239);
+      this.StartDateTimePicker.MaxDate = new System.DateTime(2100, 12, 31, 0, 0, 0, 0);
+      this.StartDateTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
       this.StartDateTimePicker.Name = "StartDateTimePicker";
       this.StartDateTimePicker.Size = new System.Drawing.Size(159, 20);
       this.StartDateTimePicker.TabIndex = 7;
@@ -140,6 +142,8 @@
       this.EndDateTimePicker.CustomFormat = "dd.MM.yyyy HH:mm";
       this.EndDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
       this.EndDateTimePicker.Location = new System.Drawing.Point(170, 239);
+      this.EndDateTimePicker.MaxDate = new System.DateTime(2100, 12, 31, 0, 0, 0, 0);
+      this.EndDateTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
       this.EndDateTimePicker.Name = "EndDateTimePicker";
       this.EndDateTimePicker.Size = new System.Drawing.Size(159, 20);
       this.EndDateTimePicker.TabIndex = 11;
