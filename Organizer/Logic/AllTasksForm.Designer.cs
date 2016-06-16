@@ -43,14 +43,14 @@
       this.tasksDataGridView.Location = new System.Drawing.Point(2, 0);
       this.tasksDataGridView.Name = "tasksDataGridView";
       this.tasksDataGridView.ReadOnly = true;
-      this.tasksDataGridView.Size = new System.Drawing.Size(727, 471);
+      this.tasksDataGridView.Size = new System.Drawing.Size(545, 471);
       this.tasksDataGridView.TabIndex = 0;
       // 
       // AllTasksForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(727, 468);
+      this.ClientSize = new System.Drawing.Size(545, 468);
       this.Controls.Add(this.tasksDataGridView);
       this.Name = "AllTasksForm";
       this.Text = "AllTasksForm";
