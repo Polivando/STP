@@ -66,6 +66,12 @@
     <Compile Include="Logic\AddNewTaskForm.Designer.cs">
       <DependentUpon>AddNewTaskForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\AllTasksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Logic\AllTasksForm.Designer.cs">
+      <DependentUpon>AllTasksForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logic\Context.cs" />
     <Compile Include="Logic\Form1.cs">
       <SubType>Form</SubType>
@@ -76,9 +82,13 @@
     <Compile Include="TaskItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewTask.cs" />
     <Compile Include="XmlTask.cs" />
     <EmbeddedResource Include="Logic\AddNewTaskForm.resx">
       <DependentUpon>AddNewTaskForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logic\AllTasksForm.resx">
+      <DependentUpon>AllTasksForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Logic\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

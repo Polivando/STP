@@ -26,6 +26,7 @@ namespace Organizer
                 MonthViewSelection.Week,
                 MonthViewSelection.Month
             };
+            TimeIntervalComboBox.SelectedItem = MonthViewSelection.Week;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -212,7 +213,7 @@ namespace Organizer
                     monthView1.SelectDay(day.Date);
                     break;
                 case MonthViewSelection.Week:
-                    monthView1.SelectWeek(day.Date);
+                    monthView1.SelectWeek(day.Date.AddDays(-1));
                     break;
                 case MonthViewSelection.Month:
                     monthView1.SelectMonth(day.Date);
@@ -252,5 +253,11 @@ namespace Organizer
             calendar1.ClearItems();
             PlaceItems();
         }
-    }
+
+        private void viewTaskButton_Click(object sender, EventArgs e)
+        {
+            var allTasksForm = new Logic.AllTasksForm();
+            allTasksForm.ShowDialog();
+        }
+  }
 }

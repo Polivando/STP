@@ -65,6 +65,7 @@
       this.calendar1 = new System.Windows.Forms.Calendar.Calendar();
       this.monthView1 = new System.Windows.Forms.Calendar.MonthView();
       this.AddTaskButton = new System.Windows.Forms.Button();
+      this.viewTaskButton = new System.Windows.Forms.Button();
       this.contextMenuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -82,48 +83,48 @@
             this.toolStripMenuItem5,
             this.editItemToolStripMenuItem});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(164, 198);
+      this.contextMenuStrip1.Size = new System.Drawing.Size(164, 192);
       this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
       // 
       // redTagToolStripMenuItem
       // 
       this.redTagToolStripMenuItem.Name = "redTagToolStripMenuItem";
-            this.redTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+      this.redTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.redTagToolStripMenuItem.Text = "Red tag";
       this.redTagToolStripMenuItem.Click += new System.EventHandler(this.redTagToolStripMenuItem_Click);
       // 
       // yellowTagToolStripMenuItem
       // 
       this.yellowTagToolStripMenuItem.Name = "yellowTagToolStripMenuItem";
-            this.yellowTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+      this.yellowTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.yellowTagToolStripMenuItem.Text = "Yellow tag";
       this.yellowTagToolStripMenuItem.Click += new System.EventHandler(this.yellowTagToolStripMenuItem_Click);
       // 
       // greenTagToolStripMenuItem
       // 
       this.greenTagToolStripMenuItem.Name = "greenTagToolStripMenuItem";
-            this.greenTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+      this.greenTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.greenTagToolStripMenuItem.Text = "Green tag";
       this.greenTagToolStripMenuItem.Click += new System.EventHandler(this.greenTagToolStripMenuItem_Click);
       // 
       // blueTagToolStripMenuItem
       // 
       this.blueTagToolStripMenuItem.Name = "blueTagToolStripMenuItem";
-            this.blueTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+      this.blueTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.blueTagToolStripMenuItem.Text = "Blue tag";
       this.blueTagToolStripMenuItem.Click += new System.EventHandler(this.blueTagToolStripMenuItem_Click);
       // 
       // otherColorTagToolStripMenuItem
       // 
       this.otherColorTagToolStripMenuItem.Name = "otherColorTagToolStripMenuItem";
-            this.otherColorTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+      this.otherColorTagToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.otherColorTagToolStripMenuItem.Text = "Other color tag...";
       this.otherColorTagToolStripMenuItem.Click += new System.EventHandler(this.otherColorTagToolStripMenuItem_Click);
       // 
       // toolStripMenuItem1
       // 
       this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(160, 6);
+      this.toolStripMenuItem1.Size = new System.Drawing.Size(160, 6);
       // 
       // patternToolStripMenuItem
       // 
@@ -135,7 +136,7 @@
             this.toolStripMenuItem3,
             this.noneToolStripMenuItem});
       this.patternToolStripMenuItem.Name = "patternToolStripMenuItem";
-            this.patternToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+      this.patternToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.patternToolStripMenuItem.Text = "Pattern";
       // 
       // diagonalToolStripMenuItem
@@ -188,7 +189,7 @@
             this.minutesToolStripMenuItem2,
             this.minutesToolStripMenuItem3});
       this.timescaleToolStripMenuItem.Name = "timescaleToolStripMenuItem";
-            this.timescaleToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+      this.timescaleToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.timescaleToolStripMenuItem.Text = "Timescale";
       // 
       // hourToolStripMenuItem
@@ -232,15 +233,16 @@
       this.minutesToolStripMenuItem3.Size = new System.Drawing.Size(132, 22);
       this.minutesToolStripMenuItem3.Text = "5 minutes";
       this.minutesToolStripMenuItem3.Click += new System.EventHandler(this.minutesToolStripMenuItem3_Click);
+      // 
       // toolStripMenuItem5
       // 
       this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(160, 6);
+      this.toolStripMenuItem5.Size = new System.Drawing.Size(160, 6);
       // 
       // editItemToolStripMenuItem
       // 
       this.editItemToolStripMenuItem.Name = "editItemToolStripMenuItem";
-            this.editItemToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+      this.editItemToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
       this.editItemToolStripMenuItem.Text = "Edit item title";
       this.editItemToolStripMenuItem.Click += new System.EventHandler(this.editItemToolStripMenuItem_Click);
       // 
@@ -298,7 +300,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.calendar1.ContextMenuStrip = this.contextMenuStrip1;
-            this.calendar1.Font = new System.Drawing.Font("Segoe UI", 9F);
+      this.calendar1.FirstDayOfWeek = System.DayOfWeek.Monday;
+      this.calendar1.Font = new System.Drawing.Font("Segoe UI", 11.25F);
       calendarHighlightRange1.DayOfWeek = System.DayOfWeek.Monday;
       calendarHighlightRange1.EndTime = System.TimeSpan.Parse("17:00:00");
       calendarHighlightRange1.StartTime = System.TimeSpan.Parse("08:00:00");
@@ -320,6 +323,7 @@
         calendarHighlightRange3,
         calendarHighlightRange4,
         calendarHighlightRange5};
+      this.calendar1.ItemsTimeFormat = "HH:MM";
       this.calendar1.Location = new System.Drawing.Point(214, 37);
       this.calendar1.Name = "calendar1";
       this.calendar1.Size = new System.Drawing.Size(969, 624);
@@ -342,6 +346,7 @@
       this.monthView1.DaySelectedColor = System.Drawing.SystemColors.WindowText;
       this.monthView1.DaySelectedTextColor = System.Drawing.SystemColors.HighlightText;
       this.monthView1.Dock = System.Windows.Forms.DockStyle.Left;
+      this.monthView1.FirstDayOfWeek = System.DayOfWeek.Monday;
       this.monthView1.ItemPadding = new System.Windows.Forms.Padding(2);
       this.monthView1.Location = new System.Drawing.Point(0, 0);
       this.monthView1.MaxSelectionCount = 35;
@@ -350,6 +355,7 @@
       this.monthView1.MonthTitleTextColor = System.Drawing.SystemColors.ActiveCaptionText;
       this.monthView1.MonthTitleTextColorInactive = System.Drawing.SystemColors.InactiveCaptionText;
       this.monthView1.Name = "monthView1";
+      this.monthView1.SelectionMode = System.Windows.Forms.Calendar.MonthView.MonthViewSelection.Week;
       this.monthView1.Size = new System.Drawing.Size(208, 661);
       this.monthView1.TabIndex = 3;
       this.monthView1.Text = "monthView1";
@@ -366,11 +372,22 @@
       this.AddTaskButton.UseVisualStyleBackColor = true;
       this.AddTaskButton.Click += new System.EventHandler(this.AddTaskButton_Click);
       // 
+      // viewTaskButton
+      // 
+      this.viewTaskButton.Location = new System.Drawing.Point(650, 8);
+      this.viewTaskButton.Name = "viewTaskButton";
+      this.viewTaskButton.Size = new System.Drawing.Size(88, 23);
+      this.viewTaskButton.TabIndex = 10;
+      this.viewTaskButton.Text = "View all tasks";
+      this.viewTaskButton.UseVisualStyleBackColor = true;
+      this.viewTaskButton.Click += new System.EventHandler(this.viewTaskButton_Click);
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1184, 661);
+      this.Controls.Add(this.viewTaskButton);
       this.Controls.Add(this.AddTaskButton);
       this.Controls.Add(this.nextIntervalLinkLabel);
       this.Controls.Add(this.previousIntervalLinkLabel);
@@ -422,6 +439,7 @@
         private System.Windows.Forms.LinkLabel previousIntervalLinkLabel;
         private System.Windows.Forms.LinkLabel nextIntervalLinkLabel;
         private System.Windows.Forms.Button AddTaskButton;
-    }
+    private System.Windows.Forms.Button viewTaskButton;
+  }
 }
 
