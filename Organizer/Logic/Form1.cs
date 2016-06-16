@@ -139,14 +139,12 @@ namespace Organizer
         
         private void calendar1_ItemDeleted(object sender, CalendarItemEventArgs e)
         {
+            calendar1.Items.Add(e.Item);
             if (DialogResult.Yes == MessageBox.Show("Are you sure to delete task?", "", MessageBoxButtons.YesNo))
             {
+                calendar1.Items.Remove(e.Item);
                 var itemToDelete = _items.FirstOrDefault(i => i.CalendarItem == e.Item);
                 _items.Remove(itemToDelete);
-            }
-            else
-            {
-                calendar1.Items.Add(e.Item);
             }
         }
 
