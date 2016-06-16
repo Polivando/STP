@@ -29,6 +29,14 @@ namespace Organizer
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            if ((TitleTextBox.Text.Length <= 0) 
+              || (StartDateTimePicker.Value >= EndDateTimePicker.Value))
+            {
+                MessageBox.Show("Invalid input!\nCheck if title isn't empty or\nend date bigger than start date");
+                return;
+            }   
+            if (DialogResult.No == MessageBox.Show("Are you sure to save changes?","Save",MessageBoxButtons.YesNo))
+                return;
             _task.Title = TitleTextBox.Text;
             _task.ShortDescription = ShortDescriptionTextBox.Text;
             _task.FullDescription = DescriptionRichTextBox.Text;
@@ -40,12 +48,17 @@ namespace Organizer
             else if (_items.Remove(_items.First(i => i.Id == _task.Id)))
                 _items.Add(_task);
                     else throw new Exception("Error on rewriting the task");
-            MessageBox.Show("Successfully saved");
+            //MessageBox.Show("Successfully saved");
             Close();
         }
 
-        private void CancelButton_Click(object sender, EventArgs e) => Close();
+        private void CancelButton_Click(object sender, EventArgs e)
+            {
+            if (DialogResult.Yes == MessageBox.Show("Decline changes?","Cancel",MessageBoxButtons.YesNo))
+                Close();
+            }
 
-        public void AddNewTaskForm_FormClosing(object sender, EventArgs e) => _task = null;
+        public void AddNewTaskForm_FormClosing(object sender, EventArgs e) 
+            => _task = null;
     }
 }
