@@ -16,13 +16,13 @@ namespace Organizer
 
         public string FullDescription { get; set; }
 
-        public int A { get; set; }
-
-        public int R { get; set; }
-
-        public int G { get; set; }
-
-        public int B { get; set; }
+        public byte A { get; set; }
+            
+        public byte R { get; set; }
+         
+        public byte G { get; set; }
+ 
+        public byte B { get; set; }
 
         public XmlTask() { }
 
